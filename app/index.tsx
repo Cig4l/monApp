@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 import { Text, TextInput, View } from "react-native";
 
+// <div></div> = View en React Native
+// <p></p> = Text
+// <ul></ul> et <ol></ol> = FlatList
+
 export default function Home() {
-  const [userName, setUserName] = useState("");
+  const [userName, setUserName] = useState(""); // useX = hook = suivre variable = màj DOM = rerender de la partie concernée
   const [userIndex, setUserIndex] = useState(1);
 
   async function getData() {
@@ -12,7 +16,6 @@ export default function Home() {
       );
       const data = await response.json();
       setUserName(data.name);
-      // console.log(data);
     } catch (error) {
       console.error("Erreur:", error);
     }
@@ -20,7 +23,10 @@ export default function Home() {
 
   useEffect(() => {
     getData();
-  }, [userIndex]); // dès qu'une variable en dépendance de l'effet change, effet se relance
+  }, [userIndex]);
+  // dès qu'une variable en dépendance de l'effet change, effet se relance
+  // si []], le useEffect() s'active seulement au chargement du composant
+  // si ,pas de crochet, se refresh en boucle, à ne pas faire !!
 
   return (
     <View style={{ flex: 1, padding: 16, gap: 12 }}>
